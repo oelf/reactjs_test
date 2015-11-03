@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<script src="build/react.min.js"></script>
+	<script src="build/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+	<script src="../../megabild70_prj_azwick/js/jquery/jquery.js"></script>
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+		
+		table td {
+			border: 1px solid black;
+		}
+	</style>
+  </head>
+  <body>
+    <div id="content"></div>
+
+	<script type="text/babel">
+	
+		var Zeile = React.createClass({
+			render: function(){
+				return (
+					<tr>
+						<td>{this.props.id}</td>
+						<td><input type="text"/></td>
+					</tr>
+				);
+			}
+		});
+	
+		var Tabelle = React.createClass({
+			getInitialState: function(){
+				return {counter: 1, arrRows: []};
+			},
+			render: function(){
+				return(
+					<table>
+						<tr>
+							<td>ID</td>
+							<td>Bezeichnung<button onClick={this.addRow}>add()</button></td>
+						</tr>
+						
+						{this.state.arrRows}
+						
+					</table>
+				);
+			},
+			addRow: function(){
+				var arrRows = this.state.arrRows;
+				arrRows.push(<Zeile id={this.state.counter}/>);
+				
+				this.setState({arrRows: arrRows, counter: this.state.counter+1});
+			}
+		});
+		
+		ReactDOM.render(<Tabelle/>, document.getElementById('content'));
+    </script>
+  </body>
+</html>
